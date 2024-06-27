@@ -117,11 +117,3 @@ int main()
         targetSpeedRight = -leftJoystickY + rightJoystickX;
     }
 }
-
-// processInput関数の定義
-void processInput(char *output_buf)
-{
-    // ここでは受け取ったデータに基づいてジョイスティックの値を更新する例を示します
-    // 実際の入力フォーマットに応じてパース処理を実装してください
-    sscanf(output_buf, "%d %d %d", &leftJoystickX, &leftJoystickY, &rightJoystickX);
-}
