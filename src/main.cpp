@@ -23,7 +23,7 @@ Timer timer;
 CAN can1(PA_11, PA_12, (int)1e6);
 CAN can2(PB_12, PB_13, (int)1e6);
 FirstPenguin penguin{penguinID, can2};
-uint8_t CANData[8] = {};
+uint8_t DATA[8] = {};
 
 // PID制御
 const float kp = 0.4;
@@ -80,14 +80,14 @@ void canSend()
         penguin.send();
 
         int16_t outputRightInt16 = static_cast<int16_t>(outputRight);
-        CANData[0] = outputRightInt16 >> 8;   // MSB
-        CANData[1] = outputRightInt16 & 0xFF; // LSB
+        DATA[0] = outputRightInt16 >> 8;   // MSB
+        DATA[1] = outputRightInt16 & 0xFF; // LSB
 
         int16_t outputLeftInt16 = static_cast<int16_t>(outputLeft);
-        CANData[2] = outputLeftInt16 >> 8;   // MSB
-        CANData[3] = outputLeftInt16 & 0xFF; // LSB
+        DATA[2] = outputLeftInt16 >> 8;   // MSB
+        DATA[3] = outputLeftInt16 & 0xFF; // LSB
 
-        CANMessage msg0(0x200, CANData, 8);
+        CANMessage msg0(0x200, DATA, 8);
         can1.write(msg0);
 
         CANMessage msg1, msg2;
