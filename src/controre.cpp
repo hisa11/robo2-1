@@ -3,33 +3,33 @@
 #include <cstdio>
 #include <cstdlib>
 
-void processInput(char* output_buf) {
-    int value_lx = 0;
-    int value_ly = 0;
-    int value_rx = 0;
+void processInput(char* inputData) {
+    int leftJoystickX = 0;
+    int leftJoystickY = 0;
+    int rightJoystickX = 0;
 
-    if (strncmp(output_buf, "L3_x:", 5) == 0) // "L3_x:"という文字列で始まるかどうかを確認します
+    if (strncmp(inputData, "L3_x:", 5) == 0) // "L3_x:"という文字列で始まるかどうかを確認します
     {
-        char *ptr = output_buf + 5; // "L3_x:"の後の文字列の先頭ポインタを取得
+        char *dataPointer = inputData + 5; // "L3_x:"の後の文字列の先頭ポインタを取得
         // 数字部分を読み取る
-        value_lx = atoi(ptr);
+        leftJoystickX = atoi(dataPointer);
         // 数字を使って何かをする（ここでは単にPCに出力）
-        printf("Lx: %d\n", value_lx);
+        printf("Left Joystick X: %d\n", leftJoystickX);
     }
-    else if (strncmp(output_buf, "L3_y:", 5) == 0) // "L3_y:"という文字列で始まるかどうかを確認します
+    else if (strncmp(inputData, "L3_y:", 5) == 0) // "L3_y:"という文字列で始まるかどうかを確認します
     {
-        char *ptr = output_buf + 5; // "L3_y:"の後の文字列の先頭ポインタを取得
+        char *dataPointer = inputData + 5; // "L3_y:"の後の文字列の先頭ポインタを取得
         // 数字部分を読み取る
-        value_ly = atoi(ptr);
+        leftJoystickY = atoi(dataPointer);
         // 数字を使って何かをする（ここでは単にPCに出力）
-        printf("Ly: %d\n", value_ly);
+        printf("Left Joystick Y: %d\n", leftJoystickY);
     }
-    else if (strncmp(output_buf, "R3_x:", 5) == 0) // "R3_x:"という文字列で始まるかどうかを確認します
+    else if (strncmp(inputData, "R3_x:", 5) == 0) // "R3_x:"という文字列で始まるかどうかを確認します
     {
-        char *ptr = output_buf + 5; // "R3_x:"の後の文字列の先頭ポインタを取得
+        char *dataPointer = inputData + 5; // "R3_x:"の後の文字列の先頭ポインタを取得
         // 数字部分を読み取る
-        value_rx = atoi(ptr);
+        rightJoystickX = atoi(dataPointer);
         // 数字を使って何かをする（ここでは単にPCに出力）
-        printf("Rx: %d\n", value_rx);
+        printf("Right Joystick X: %d\n", rightJoystickX);
     }
 }
