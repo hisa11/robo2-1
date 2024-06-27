@@ -74,10 +74,21 @@ void canSend()
 {
     while (1)
     {
+        CANMessage msg1, msg2;
+        if (can1.read(msg1) && msg1.id == 0x201)
+        {
+            currentSpeed = (msg1.data[2] << 8) | msg1.data[3];
+        }
+        if (can1.read(msg2) && msg2.id == 0x202)
+        {
+            currentSpeed1 = (msg2.data[2] << 8) | msg2.data[3];
+        }
+        printf("currentSpeed = %d , currentSpeed1 = %d\n", currentSpeed, currentSpeed1);
+        
+
         float outputRight = pidControllerRight.calculate(targetSpeedRight, currentSpeed);
         float outputLeft = pidControllerLeft.calculate(targetSpeedLeft, currentSpeed1);
 
-        penguin.send();
 
         int16_t outputRightInt16 = static_cast<int16_t>(outputRight);
         DATA[0] = outputRightInt16 >> 8;   // MSB
@@ -89,17 +100,8 @@ void canSend()
 
         CANMessage msg0(0x200, DATA, 8);
         can1.write(msg0);
+        penguin.send();
 
-        CANMessage msg1, msg2;
-        if (can1.read(msg1) && msg1.id == 0x201)
-        {
-            currentSpeed = (msg1.data[2] << 8) | msg1.data[3];
-        }
-        if (can1.read(msg2) && msg2.id == 0x202)
-        {
-            currentSpeed1 = (msg2.data[2] << 8) | msg2.data[3];
-        }
-        printf("currentSpeed = %d , currentSpeed1 = %d\n", currentSpeed, currentSpeed1);
     }
 }
 
